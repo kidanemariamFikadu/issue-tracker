@@ -30,5 +30,6 @@ This app is ideal for:
    git clone <repository-url>
    cd issue-tracker
 2. Install dependecies:
+   ```bash
    composer install
    npm install && npm run dev
