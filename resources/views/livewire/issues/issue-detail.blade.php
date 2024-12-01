@@ -122,21 +122,11 @@
             }
         </script>
 
-
-        <!-- Image Modal -->
-        <div id="imageModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-75"
-            onclick="closeImageModal()">
-            <div class="relative" onclick="event.stopPropagation();">
-                <img id="modalImage" src="" alt="Attachment" class="max-w-full max-h-full">
-                <button onclick="closeImageModal()"
-                    class="absolute top-0 right-0 mt-2 mr-2 text-white text-2xl">&times;</button>
-            </div>
-        </div>
-
         <!-- Media Modal -->
         <div id="mediaModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-75"
             onclick="closeMediaModal()">
             <div class="relative" onclick="event.stopPropagation();">
+                <img id="modalImage" src="" alt="Attachment" class="max-w-full max-h-full">
                 <video id="modalVideo" controls class="max-w-full max-h-full hidden">
                     <source src="" type="video/mp4">
                     Your browser does not support the video tag.
