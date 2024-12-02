@@ -8,7 +8,7 @@
             <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Issue Details</h2>
             <div>
                 @role('admin')
-                    @if ($issue->status != 'Closed')
+                    @if ($issue->status != 'Closed' && $issue->status != 'Resolved')
                         <button
                             wire:click="$dispatch('openModal', { component: 'issues.assign-issue', arguments: { issueId: {{ $issue->id }} }})"
                             class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -23,7 +23,7 @@
                         Manage Issue
                     </button>
                 @endrole
-                @if ($issue->status != 'Closed' && auth()->user()->id == $issue->created_by)
+                @if ($issue->status != 'Closed' && $issue->status != 'Resolved' && auth()->user()->id == $issue->created_by)
                     <button
                         wire:click="$dispatch('openModal', { component: 'issues.create-issue', arguments: { issueId: {{ $issue->id }} }})"
                         class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -184,7 +184,8 @@
                                                             d="M9 7V2.221a2 2 0 0 0-.5.365L4.586 6.5a2 2 0 0 0-.365.5H9Z" />
                                                     </svg>
                                                 </div>
-                                                <a href="{{ asset('storage/' . $attachment->url) }}" download class="absolute inset-0"></a>
+                                                <a href="{{ asset('storage/' . $attachment->url) }}" download
+                                                    class="absolute inset-0"></a>
                                             </div>
                                         @endif
                                     </div>

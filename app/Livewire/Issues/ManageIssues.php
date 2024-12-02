@@ -21,12 +21,12 @@ class ManageIssues extends ModalComponent
     public function mount($issueId = null)
     {
         $this->issuesId = $issueId;
-        if($issueId){
-            $issue=IssueReport::find($this->issuesId);
-            $this->application=$issue->application_id;
-            $this->category=$issue->category_id;
-            $this->priority=$issue->priority;
-            $this->status=$issue->status;
+        if ($issueId) {
+            $issue = IssueReport::find($this->issuesId);
+            $this->application = $issue->application_id;
+            $this->category = $issue->category_id;
+            $this->priority = $issue->priority;
+            $this->status = $issue->status;
         }
     }
 
@@ -40,12 +40,21 @@ class ManageIssues extends ModalComponent
         ]);
 
         $issue = IssueReport::find($this->issuesId);
-        $issue->update([
-            'category_id' => $this->category,
-            'application_id'=>$this->application,
-            'priority'=>$this->priority,
-            'status'=>$this->status,
-        ]);
+        // $issue->update([
+        //     'category_id' => $this->category,
+        //     'application_id'=>$this->application,
+        //     'priority'=>$this->priority,
+        //     'status'=>$this->status,
+        // ]);
+
+        $issue->category_id = $this->category;
+        $issue->application_id = $this->application;
+        $issue->priority = $this->priority;
+        $issue->status = $this->status;
+        if ($issue->status == 'Resolved' || $issue->status == 'Closed') {
+            $issue->update(['resolved_at' => now()]);
+        }
+        $issue->save();
 
         $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Issue updated successfully']);
         $this->dispatch('issue-detail-changed');
