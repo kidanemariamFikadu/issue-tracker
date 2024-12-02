@@ -150,6 +150,48 @@
                         </p>
                     </div>
                     <p class="text-sm text-gray-700 dark:text-gray-300">{{ $comment->comment }}</p>
+                    @if ($comment->attachments->isNotEmpty())
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Attachments</h3>
+                            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                @foreach ($comment->attachments as $attachment)
+                                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                        @if (in_array(pathinfo($attachment->url, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif']))
+                                            <img src="{{ asset('storage/' . $attachment->url) }}" alt="Attachment"
+                                                class="w-full h-48 object-cover cursor-pointer"
+                                                onclick="openMediaModal('{{ asset('storage/' . $attachment->url) }}', 'image')">
+                                        @elseif (in_array(pathinfo($attachment->url, PATHINFO_EXTENSION), ['mp4', 'webm', 'ogg']))
+                                            <video controls class="w-full h-48 object-cover cursor-pointer"
+                                                onclick="openMediaModal('{{ asset('storage/' . $attachment->url) }}', 'video')">
+                                                <source src="{{ asset('storage/' . $attachment->url) }}"
+                                                    type="video/{{ pathinfo($attachment->url, PATHINFO_EXTENSION) }}">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        @else
+                                            <div class="relative">
+                                                <div class="w-24 h-24 flex items-center justify-center bg-gray-200 rounded-lg cursor-pointer"
+                                                    onclick="window.location.href='{{ asset('storage/' . $attachment->url) }}'">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" fill="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M6 16v-3h.375a.626.626 0 0 1 .625.626v1.749a.626.626 0 0 1-.626.625H6Zm6-2.5a.5.5 0 1 1 1 0v2a.5.5 0 0 1-1 0v-2Z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M11 7V2h7a2 2 0 0 1 2 2v5h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2H3a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h6a2 2 0 0 0 2-2Zm7.683 6.006 1.335-.024-.037-2-1.327.024a2.647 2.647 0 0 0-2.636 2.647v1.706a2.647 2.647 0 0 0 2.647 2.647H20v-2h-1.335a.647.647 0 0 1-.647-.647v-1.706a.647.647 0 0 1 .647-.647h.018ZM5 11a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1.376A2.626 2.626 0 0 0 9 15.375v-1.75A2.626 2.626 0 0 0 6.375 11H5Zm7.5 0a2.5 2.5 0 0 0-2.5 2.5v2a2.5 2.5 0 0 0 5 0v-2a2.5 2.5 0 0 0-2.5-2.5Z"
+                                                            clip-rule="evenodd" />
+                                                        <path
+                                                            d="M9 7V2.221a2 2 0 0 0-.5.365L4.586 6.5a2 2 0 0 0-.365.5H9Z" />
+                                                    </svg>
+                                                </div>
+                                                <a href="{{ asset('storage/' . $attachment->url) }}" download class="absolute inset-0"></a>
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
             @empty
                 <p class="text-sm text-gray-500 dark:text-gray-400">No comments yet.</p>
@@ -159,19 +201,85 @@
         <!-- Add Comment Section -->
         @if ($issue->status != 'Closed' && $issue->status != 'Resolved')
             <div class="mt-6">
-            <h3 class="text-lg font-medium text-gray-900 dark:text-black">Add a Comment</h3>
-            <form wire:submit.prevent="addComment" class="mt-4">
-                <textarea wire:model="newComment" rows="3"
-                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                placeholder="Write your comment..."></textarea>
-                @error('newComment')
-                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                @enderror
-                <button type="submit"
-                class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                Submit
-                </button>
-            </form>
+                <h3 class="text-lg font-medium text-gray-900 dark:text-black">Add a Comment</h3>
+                <form wire:submit.prevent="addComment" class="mt-4">
+                    <textarea wire:model="newComment" rows="3"
+                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Write your comment..."></textarea>
+                    @error('newComment')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
+
+                    <!-- Attachments -->
+                    <div class="mb-4">
+                        <label for="attachments"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">Attachments</label>
+                        <input type="file" id="attachments" wire:model="attachments" multiple
+                            class="mt-1 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-full file:text-sm file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                        @error('attachments.*')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Preview Section -->
+                    {{ count($uploadedImages) }}
+                    @if (!empty($uploadedImages) && count($uploadedImages) > 0)
+                        <div class="mt-4 flex flex-wrap gap-4">
+                            @foreach ($uploadedImages as $index => $image)
+                                @php
+                                    $mimeType = explode('/', $image->getMimeType());
+                                @endphp
+                                @if (str_starts_with($mimeType[0], 'image'))
+                                    <div class="relative">
+                                        <img src="{{ $image->temporaryUrl() }}" alt="Preview"
+                                            class="w-24 h-24 object-cover rounded-lg">
+                                        <button type="button" wire:click="removeAttachment({{ $index }})"
+                                            class="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-xs hover:bg-red-600">
+                                            ✕
+                                        </button>
+                                    </div>
+                                @elseif(str_starts_with($mimeType[0], 'video'))
+                                    <div class="relative">
+                                        <video src="{{ $image->temporaryUrl() }}" alt="Preview"
+                                            class="w-24 h-24 object-cover rounded-lg" controls>
+                                        </video>
+                                        <button type="button" wire:click="removeAttachment({{ $index }})"
+                                            class="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-xs hover:bg-red-600">
+                                            ✕
+                                        </button>
+                                    </div>
+                                @else
+                                    <div class="relative">
+                                        <div class="w-24 h-24 flex items-center justify-center bg-gray-200 rounded-lg">
+                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="currentColor" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M6 16v-3h.375a.626.626 0 0 1 .625.626v1.749a.626.626 0 0 1-.626.625H6Zm6-2.5a.5.5 0 1 1 1 0v2a.5.5 0 0 1-1 0v-2Z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M11 7V2h7a2 2 0 0 1 2 2v5h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2H3a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h6a2 2 0 0 0 2-2Zm7.683 6.006 1.335-.024-.037-2-1.327.024a2.647 2.647 0 0 0-2.636 2.647v1.706a2.647 2.647 0 0 0 2.647 2.647H20v-2h-1.335a.647.647 0 0 1-.647-.647v-1.706a.647.647 0 0 1 .647-.647h.018ZM5 11a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1.376A2.626 2.626 0 0 0 9 15.375v-1.75A2.626 2.626 0 0 0 6.375 11H5Zm7.5 0a2.5 2.5 0 0 0-2.5 2.5v2a2.5 2.5 0 0 0 5 0v-2a2.5 2.5 0 0 0-2.5-2.5Z"
+                                                    clip-rule="evenodd" />
+                                                <path d="M9 7V2.221a2 2 0 0 0-.5.365L4.586 6.5a2 2 0 0 0-.365.5H9Z" />
+                                            </svg>
+
+                                        </div>
+                                        <p class="text-xs text-gray-700 dark:text-gray-300 mt-1">
+                                            {{ $image->getClientOriginalName() }}</p>
+                                        <button type="button" wire:click="removeAttachment({{ $index }})"
+                                            class="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-xs hover:bg-red-600">
+                                            ✕
+                                        </button>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <button type="submit"
+                        class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Submit
+                    </button>
+                </form>
             </div>
         @endif
     </div>
