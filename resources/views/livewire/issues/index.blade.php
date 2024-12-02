@@ -120,8 +120,23 @@
                                         {{ $issue->issue }}</th>
                                     <td class="px-4 py-3">{{ $issue->application?->name }}</td>
                                     <td class="px-4 py-3">{{ $issue->category?->name }}</td>
-                                    <td class="px-4 py-3">{{ $issue->status }}</td>
-                                    <td class="px-4 py-3">{{ $issue->priority }}</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 rounded-full text-xs font-semibold 
+                                            {{ $issue->status == 'Open' ? 'bg-green-200 text-green-800' : '' }}
+                                            {{ $issue->status == 'Closed' ? 'bg-red-200 text-red-800' : '' }}
+                                            {{ $issue->status == 'In Progress' ? 'bg-yellow-200 text-yellow-800' : '' }}
+                                            {{ $issue->status == 'Resolved' ? 'bg-red-200 text-red-800' : '' }}">
+                                            {{ $issue->status }}
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 rounded-full text-xs font-semibold 
+                                            {{ $issue->priority == 'High' ? 'bg-red-200 text-red-800' : '' }}
+                                            {{ $issue->priority == 'Medium' ? 'bg-yellow-200 text-yellow-800' : '' }}
+                                            {{ $issue->priority == 'Low' ? 'bg-green-200 text-green-800' : '' }}">
+                                            {{ $issue->priority }}
+                                        </span>
+                                    </td>
                                     <td class="px-4 py-3">
                                         {{ $issue->assignedTo ? $issue->assignedTo->name : 'Not Assigned' }}</td>
                                     <td class="px-4 py-3">{{ $issue->created_at->diffForHumans() }}</td>
