@@ -157,21 +157,21 @@
         </div>
 
         <!-- Add Comment Section -->
-        @if ($issue->status != 'Closed')
+        @if ($issue->status != 'Closed' && $issue->status != 'Resolved')
             <div class="mt-6">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-black">Add a Comment</h3>
-                <form wire:submit.prevent="addComment" class="mt-4">
-                    <textarea wire:model="newComment" rows="3"
-                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                        placeholder="Write your comment..."></textarea>
-                    @error('newComment')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                    <button type="submit"
-                        class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        Submit
-                    </button>
-                </form>
+            <h3 class="text-lg font-medium text-gray-900 dark:text-black">Add a Comment</h3>
+            <form wire:submit.prevent="addComment" class="mt-4">
+                <textarea wire:model="newComment" rows="3"
+                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                placeholder="Write your comment..."></textarea>
+                @error('newComment')
+                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                @enderror
+                <button type="submit"
+                class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Submit
+                </button>
+            </form>
             </div>
         @endif
     </div>
