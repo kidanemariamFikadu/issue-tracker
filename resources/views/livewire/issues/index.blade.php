@@ -65,11 +65,8 @@
                             </select>
                         </div>
                     </div> --}}
-
-                    <x-button class="ms-4 bg-blue-600"
-                        wire:click="$dispatch('openModal', { component: 'issues.filter-issues'})">
-                        Filter
-                    </x-button>
+                    <button wire:click="$dispatch('openModal', { component: 'issues.filter-issues' })"
+                        class="px-3 py-1 bg-blue-500 text-white rounded">Filter Issues</button>
                 </div>
                 <div class="overflow-x-auto">
                     {{-- <button wire:click="deleteSelected"
@@ -121,7 +118,8 @@
                                     <td class="px-4 py-3">{{ $issue->application?->name }}</td>
                                     <td class="px-4 py-3">{{ $issue->category?->name }}</td>
                                     <td class="px-4 py-3">
-                                        <span class="px-2 py-1 rounded-full text-xs font-semibold 
+                                        <span
+                                            class="px-2 py-1 rounded-full text-xs font-semibold 
                                             {{ $issue->status == 'Open' ? 'bg-green-200 text-green-800' : '' }}
                                             {{ $issue->status == 'Closed' ? 'bg-red-200 text-red-800' : '' }}
                                             {{ $issue->status == 'In Progress' ? 'bg-yellow-200 text-yellow-800' : '' }}
@@ -130,9 +128,11 @@
                                         </span>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <span class="px-2 py-1 rounded-full text-xs font-semibold 
+                                        <span
+                                            class="px-2 py-1 rounded-full text-xs font-semibold 
                                             {{ $issue->priority == 'High' ? 'bg-red-200 text-red-800' : '' }}
                                             {{ $issue->priority == 'Medium' ? 'bg-yellow-200 text-yellow-800' : '' }}
+                                            {{ $issue->priority == 'Not set' ? 'bg-blue-200 text-blue-800' : '' }}
                                             {{ $issue->priority == 'Low' ? 'bg-green-200 text-green-800' : '' }}">
                                             {{ $issue->priority }}
                                         </span>

@@ -3,14 +3,19 @@
 namespace App\Livewire\Issues;
 
 use App\Models\Application;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
 class FilterIssues extends ModalComponent
 {
+    #[Url(history: true)]
     public $application;
+    #[Url(history: true)]
     public $category;
+    #[Url(history: true)]
     public $priority;
+    #[Url(history: true)]
     public $status;
 
     function filterIssues()
