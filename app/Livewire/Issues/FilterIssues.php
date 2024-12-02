@@ -3,6 +3,7 @@
 namespace App\Livewire\Issues;
 
 use App\Models\Application;
+use App\Models\Category;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
@@ -29,13 +30,24 @@ class FilterIssues extends ModalComponent
         $this->closeModal();
     }
 
+    function clearFilters()
+    {
+        $this->dispatch('filter-issues', [
+            'application' => "",
+            'category' => "",
+            'priority' => "",
+            'status' => "",
+        ]);
+        $this->closeModal();
+    }
+
     public function render()
     {
         return view(
             'livewire.issues.filter-issues',
             [
                 'applications' => Application::orderBy('name')->get(['name', 'id']),
-                'categories' => Application::orderBy('name')->get(['name', 'id']),
+                'categories' => Category::orderBy('name')->get(['name', 'id']),
                 'priorities' => ['Not set', 'Low', 'Medium', 'High'],
                 'statuses' => ['Open', 'In Progress', 'Resolved', 'Closed'],
             ]
