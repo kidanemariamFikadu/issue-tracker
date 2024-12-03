@@ -80,25 +80,25 @@
                                         {{ count($selectedStudents) === $students->count() ? 'checked' : '' }}></th> --}}
                                 @include('livewire.includes.table-sortable-th', [
                                     'name' => 'issue',
-                                    'displayName' => 'issue',
+                                    'displayName' => 'ISSUE',
                                 ])
-                                <th scope="col" class="px-4 py-3">Category</th>
+                                <th scope="col" class="px-4 py-3">Application</th>
                                 @include('livewire.includes.table-sortable-th', [
                                     'name' => 'category',
-                                    'displayName' => 'Category',
+                                    'displayName' => 'CATEGORY',
                                 ])
                                 @include('livewire.includes.table-sortable-th', [
                                     'name' => 'status',
-                                    'displayName' => 'Status',
+                                    'displayName' => 'STATUS',
                                 ])
                                 @include('livewire.includes.table-sortable-th', [
                                     'name' => 'priority',
-                                    'displayName' => 'Priority',
+                                    'displayName' => 'RPIORITY',
                                 ])
                                 <th scope="col" class="px-4 py-3">Assigned to</th>
                                 @include('livewire.includes.table-sortable-th', [
                                     'name' => 'created_at',
-                                    'displayName' => 'Created at',
+                                    'displayName' => 'CREATED AT',
                                 ])
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
