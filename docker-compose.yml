@@ -13,18 +13,18 @@ services:
     ports:
       - "8088:8088"
 
-  # webserver:
-  #   image: nginx:latest
-  #   container_name: issue_tracker_webserver
-  #   volumes:
-  #     - ./:/var/www
-  #     - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-  #   ports:
-  #     - "8090"
-  #   networks:
-  #     - laravel
-  #   depends_on:
-  #     - app
+  webserver:
+    image: nginx:latest
+    container_name: issue_tracker_webserver
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8088"
+    networks:
+      - laravel
+    depends_on:
+      - app
 
 networks:
   laravel:
