@@ -172,7 +172,7 @@
                                                 <div class="w-24 h-24 flex items-center justify-center bg-gray-200 rounded-lg cursor-pointer"
                                                     onclick="window.location.href='{{ asset('storage/' . $attachment->url) }}'">
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        aria-hidden="true" xmlns="https://www.w3.org/2000/svg"
                                                         width="24" height="24" fill="currentColor"
                                                         viewBox="0 0 24 24">
                                                         <path
@@ -253,7 +253,7 @@
                                     <div class="relative">
                                         <div class="w-24 h-24 flex items-center justify-center bg-gray-200 rounded-lg">
                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                xmlns="https://www.w3.org/2000/svg" width="24" height="24"
                                                 fill="currentColor" viewBox="0 0 24 24">
                                                 <path
                                                     d="M6 16v-3h.375a.626.626 0 0 1 .625.626v1.749a.626.626 0 0 1-.626.625H6Zm6-2.5a.5.5 0 1 1 1 0v2a.5.5 0 0 1-1 0v-2Z" />

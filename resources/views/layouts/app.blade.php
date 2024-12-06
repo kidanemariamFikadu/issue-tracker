@@ -55,7 +55,7 @@
                                 </svg>
                             </span>
                             {{ Auth::user()->name }}
-                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="https://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 1 4 4 4-4" />
@@ -91,13 +91,13 @@
                             aria-controls="mobile-menu-2" aria-expanded="false">
                             <span class="sr-only">Open main menu</span>
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="https://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                                     clip-rule="evenodd"></path>
                             </svg>
                             <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="https://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                     clip-rule="evenodd"></path>
@@ -161,7 +161,7 @@
                     bg: "bg-green-100 dark:bg-green-800",
                     iconBg: "text-green-500 dark:text-green-200",
                     icon: `
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="https://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M16.707 4.293a1 1 0 010 1.414L9 13.414l-3.293-3.293a1 1 0 011.414-1.414L9 10.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                         </svg>
                     `
@@ -170,7 +170,7 @@
                     bg: "bg-red-100 dark:bg-red-800",
                     iconBg: "text-red-500 dark:text-red-200",
                     icon: `
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="https://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.682-1.36 3.446 0l6.01 10.68c.764 1.36-.191 3.041-1.723 3.041H3.97c-1.533 0-2.487-1.681-1.723-3.041l6.01-10.68zM11 13a1 1 0 10-2 0 1 1 0 002 0zm-1-7a1 1 0 00-.707.293l-1 1a1 1 0 101.414 1.414L10 7.414l.293.293a1 1 0 001.414-1.414l-1-1A1 1 0 0010 6z" clip-rule="evenodd"></path>
                         </svg>
                     `
@@ -179,7 +179,7 @@
                     bg: "bg-blue-100 dark:bg-blue-800",
                     iconBg: "text-blue-500 dark:text-blue-200",
                     icon: `
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="https://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-9-3a1 1 0 112 0v4a1 1 0 01-2 0V7zm0 6a1 1 0 100 2h.01a1 1 0 000-2H9z" clip-rule="evenodd"></path>
                         </svg>
                     `
@@ -199,7 +199,7 @@
                 <div class="ml-3 text-sm font-normal">${data.message}</div>
                 <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" aria-label="Close" onclick="this.parentElement.remove();">
                     <span class="sr-only">Close</span>
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="https://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
                 </button>
