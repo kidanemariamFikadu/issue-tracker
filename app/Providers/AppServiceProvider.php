@@ -22,7 +22,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         IssueReport::observe(\App\Observers\IssueReportOberser::class);
-
-        URL::forceScheme('https');
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
