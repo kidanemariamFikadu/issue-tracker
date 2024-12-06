@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
     {
         IssueReport::observe(\App\Observers\IssueReportOberser::class);
 
-        URL::forceScheme('https');
+        // URL::forceScheme('https');
     }
 }
