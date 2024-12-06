@@ -17,7 +17,7 @@
         @endsession
 
         {{-- <form method="POST" action="{{ route('login') }}"> --}}
-        <form method="POST" action="https://issuetracker.lersha.com/login'">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <div>
