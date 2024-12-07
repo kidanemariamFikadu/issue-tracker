@@ -44,21 +44,6 @@
                     class="mr-3 h-6 sm:h-9 hidden dark:block" alt="Lersha Logo" />
                 </a>
                 <div class="flex items-center lg:order-2">
-                <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-2"
-                    id="mobile-menu-2">
-                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                    <li>
-                        <a href="/issues"
-                        class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Issues</a>
-                    </li>
-                    @role('admin')
-                        <li>
-                        <a href="/settings"
-                            class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Settings</a>
-                        </li>
-                    @endrole
-                    </ul>
-                </div>
                 <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
                     class="flex items-center justify-between w-full py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
                     <span class="ml-4">
@@ -73,7 +58,8 @@
                     fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                         stroke-width="2" d="m1 1 4 4 4-4" />
-                    </svg></button>
+                    </svg>
+                </button>
                 <!-- Dropdown menu -->
                 <div id="dropdownNavbar"
                     class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
@@ -110,6 +96,21 @@
                         clip-rule="evenodd"></path>
                     </svg>
                 </button>
+                </div>
+                <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+                id="mobile-menu-2">
+                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                    <li>
+                    <a href="/issues"
+                        class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Issues</a>
+                    </li>
+                    @role('admin')
+                    <li>
+                    <a href="/settings"
+                        class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Settings</a>
+                    </li>
+                    @endrole
+                </ul>
                 </div>
             </div>
             </nav>
