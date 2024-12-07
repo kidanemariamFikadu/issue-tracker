@@ -16,29 +16,10 @@
         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
             <h2 class="text-2xl mb-3">Issues List</h2>
             <!-- Start coding here -->
-            <div class="flex justify-between mb-4">
-                <button wire:click="$dispatch('openModal', { component: 'issues.create-issue' })"
-                    class="px-3 py-1 bg-teal-500 text-white rounded">+ Add issue</button>
-                <div class="flex space-x-2">
-                    <button wire:click="toggleMyIssues"
-                        class="px-3 py-1 rounded 
-                    {{ $this->myIssues ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black' }}">
-                        My Issues
-                    </button>
-
-                    @role('dev')
-                        <button wire:click="toggleAssignedToMe"
-                            class="px-3 py-1 rounded 
-                    {{ $this->assignedToMe ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black' }}">
-                            Assigned to me
-                        </button>
-                    @endrole
-                </div>
-            </div>
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                 <div class="flex items-center justify-between d p-4">
                     <div class="flex">
-                        <div class="relative w-full">
+                        <div class="relative w-full mr-2">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
                                     fill="currentColor" viewbox="0 0 20 20" xmlns="https://www.w3.org/2000/svg">
@@ -51,6 +32,14 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 "
                                 placeholder="Search" required="">
                         </div>
+                        <button wire:click="$dispatch('openModal', { component: 'issues.filter-issues' })"
+                            class="px-3 py-1 bg-gray-200 text-blue-500 rounded"><svg
+                                class="w-6 h-6 text-blue-500 dark:text-blue" aria-hidden="true"
+                                xmlns="https://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z" />
+                            </svg></button>
                     </div>
                     {{-- <div class="flex space-x-3">
                         <div class="flex space-x-3 items-center">
@@ -65,8 +54,25 @@
                             </select>
                         </div>
                     </div> --}}
-                    <button wire:click="$dispatch('openModal', { component: 'issues.filter-issues' })"
-                        class="px-3 py-1 bg-blue-500 text-white rounded">Filter Issues</button>
+                    <div class="flex justify-between mb-4">
+                        <button wire:click="$dispatch('openModal', { component: 'issues.create-issue' })"
+                            class="px-3 py-1 bg-blue-500 text-white rounded mr-2">+ Add issue</button>
+                        <div class="flex space-x-2">
+                            <button wire:click="toggleMyIssues"
+                                class="px-3 py-1 rounded 
+                            {{ $this->myIssues ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black' }}">
+                                My Issues
+                            </button>
+        
+                            @role('dev')
+                                <button wire:click="toggleAssignedToMe"
+                                    class="px-3 py-1 rounded 
+                            {{ $this->assignedToMe ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black' }}">
+                                    Assigned to me
+                                </button>
+                            @endrole
+                        </div>
+                    </div>
                 </div>
                 <div class="overflow-x-auto">
                     {{-- <button wire:click="deleteSelected"
