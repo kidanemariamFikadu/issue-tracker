@@ -2,9 +2,9 @@
     <x-authentication-card>
         <x-slot name="logo">
             <div class="flex flex-col items-center">
-                <img src="https://www.lersha.com/assets/vectors/logo_main.svg" class="mr-3 h-10 sm:h-12 block dark:hidden"
+                <img src="https://www.lersha.com/assets/vectors/logo_main.svg" class="mr-3 h-10 sm:h-12 block "
                     alt="Lersha Logo" />
-                <h3 class="mt-2">Lersha Issue Tracker</h3>
+                <h3 class="mt-2 text-gray-800 dark:text-gray-200">Lersha Issue Tracker</h3>
             </div>
         </x-slot>
 
