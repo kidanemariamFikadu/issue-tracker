@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class UserList extends Component
 {
@@ -25,8 +26,16 @@ class UserList extends Component
     public $perPage = 10;
 
     #[On('user-changed')]
-    public function gradeChanged()
+    public function userChanged()
     {
+    }
+
+    function resetPassword($id)
+    {
+        $user = User::find($id);
+        $passwordStr = Str::random(8);
+        $user->password = bcrypt($passwordStr);
+        $user->save();
     }
 
     public function render()

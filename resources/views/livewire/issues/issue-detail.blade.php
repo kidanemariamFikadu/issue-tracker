@@ -2,65 +2,91 @@
     class="max-w-4xl mx-auto bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-6">
     <!-- Issue Details Section -->
     <div class="mb-6">
-        <a href="{{ route('issues') }}"
-            class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Back</a>
+        <button onclick="window.location.href='{{ route('issues') }}'"
+            class="px-4 py-2 bg-gray-200 text-blue-600 text-sm font-medium rounded-lg hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200">
+            <svg class="w-6 h-6 text-gray-800 dark:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 12h14M5 12l4-4m-4 4 4 4" />
+            </svg>
+        </button>
         <div class="flex justify-between items-center">
             <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Issue Details</h2>
             <div>
-                @role('admin')
-                    @if ($issue->status != 'Closed' && $issue->status != 'Resolved')
-                        <button
-                            wire:click="$dispatch('openModal', { component: 'issues.assign-issue', arguments: { issueId: {{ $issue->id }} }})"
-                            class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            Assign Issue
-                        </button>
-                    @endif
-                @endrole
-                @role('admin|dev')
-                    <button
-                        wire:click="$dispatch('openModal', { component: 'issues.manage-issues', arguments: { issueId: {{ $issue->id }} }})"
-                        class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        Manage Issue
-                    </button>
-                @endrole
-                @if ($issue->status != 'Closed' && $issue->status != 'Resolved' && auth()->user()->id == $issue->created_by)
-                    <button
-                        wire:click="$dispatch('openModal', { component: 'issues.create-issue', arguments: { issueId: {{ $issue->id }} }})"
-                        class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        Edit Issue
-                    </button>
+            @role('admin')
+                @if ($issue->status != 'Closed' && $issue->status != 'Resolved')
+                <button
+                    wire:click="$dispatch('openModal', { component: 'issues.assign-issue', arguments: { issueId: {{ $issue->id }} }})"
+                    class="px-4 py-2 border border-blue-600 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Assign Issue
+                </button>
                 @endif
+            @endrole
+            @role('admin|dev')
+                <button
+                wire:click="$dispatch('openModal', { component: 'issues.manage-issues', arguments: { issueId: {{ $issue->id }} }})"
+                class="px-4 py-2 border border-blue-600 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Manage Issue
+                </button>
+            @endrole
+            @if ($issue->status != 'Closed' && $issue->status != 'Resolved' && auth()->user()->id == $issue->created_by)
+                <button
+                wire:click="$dispatch('openModal', { component: 'issues.create-issue', arguments: { issueId: {{ $issue->id }} }})"
+                class="px-4 py-2 border border-blue-600 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Edit Issue
+                </button>
+            @endif
             </div>
         </div>
         <div class="mt-4">
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300"><span class="font-medium">Application:</span>
-                {{ $issue->application?->name }}</p>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300"><span class="font-medium">category:</span>
-                {{ $issue->category_id ? $issue->category->name : 'Category not selected' }}</p>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300"><span class="font-medium">Isseue:</span>
-                {{ $issue->issue }}</p>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 mt-2"><span class="font-medium">Description:</span>
-            </p>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 mt-1">{{ $issue->description }}</p>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300"><span class="font-medium">Application:</span>
-                {{ $issue->application?->name }}</p>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 mt-2"><span class="font-medium">Status:</span>
-                <span
-                    class="px-2 py-1 rounded-lg {{ $issue->status === 'Open' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                    {{ $issue->status }}
-                </span>
-            </p>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 mt-1"><span class="font-medium">Priority:</span>
-                <span
-                    class="px-2 py-1 rounded-lg {{ $issue->priority === 'Low' ? 'bg-blue-100 text-blue-700' : ($issue->priority === 'Medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700') }}">
-                    {{ $issue->priority }}
-                </span>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 mt-2"><span class="font-medium">Created By:</span>
-                {{ $issue->createdBy ? $issue->createdBy->name : 'Guest' }}</p>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 mt-1"><span class="font-medium">Created At:</span>
-                {{ $issue->created_at->format('F j, Y g:i A') }}</p>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 mt-1"><span class="font-medium">Assigned To:</span>
-                {{ $issue->assignedTo ? $issue->assignedTo->name : 'Not Assigned' }}</p>
+            <table class="w-full mt-2 text-sm text-gray-700 dark:text-gray-300">
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Application:</td>
+                    <td>{{ $issue->application?->name }}</td>
+                </tr>
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Category:</td>
+                    <td>{{ $issue->category_id ? $issue->category->name : 'Category not selected' }}</td>
+                </tr>
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Issue:</td>
+                    <td>{{ $issue->issue }}</td>
+                </tr>
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Description:</td>
+                    <td>{{ $issue->description }}</td>
+                </tr>
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Status:</td>
+                    <td>
+                        <span
+                            class="px-2 py-1 rounded-lg {{ $issue->status === 'Open' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                            {{ $issue->status }}
+                        </span>
+                    </td>
+                </tr>
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Priority:</td>
+                    <td>
+                        <span
+                            class="px-2 py-1 rounded-lg {{ $issue->priority === 'Low' ? 'bg-blue-100 text-blue-700' : ($issue->priority === 'Medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700') }}">
+                            {{ $issue->priority }}
+                        </span>
+                    </td>
+                </tr>
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Created By:</td>
+                    <td>{{ $issue->createdBy ? $issue->createdBy->name : 'Guest' }}</td>
+                </tr>
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Created At:</td>
+                    <td>{{ $issue->created_at->format('F j, Y g:i A') }}</td>
+                </tr>
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Assigned To:</td>
+                    <td>{{ $issue->assignedTo ? $issue->assignedTo->name : 'Not Assigned' }}</td>
+                </tr>
+            </table>
         </div>
 
         <!-- Attachments Section -->
@@ -202,7 +228,7 @@
         <!-- Add Comment Section -->
         @if ($issue->status != 'Closed' && $issue->status != 'Resolved')
             <div class="mt-6">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-black">Add a Comment</h3>
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Add a Comment</h3>
                 <form wire:submit.prevent="addComment" class="mt-4">
                     <textarea wire:model="newComment" rows="3"
                         class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
@@ -223,7 +249,7 @@
                     </div>
 
                     <!-- Preview Section -->
-                    {{ count($uploadedImages) }}
+                    {{-- {{ count($uploadedImages) }} --}}
                     @if (!empty($uploadedImages) && count($uploadedImages) > 0)
                         <div class="mt-4 flex flex-wrap gap-4">
                             @foreach ($uploadedImages as $index => $image)

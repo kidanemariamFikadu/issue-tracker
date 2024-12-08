@@ -29,8 +29,11 @@ class Index extends Component
 
     #[Url(history: true)]
     public $sortDir = 'ASC';
+    
+    #[Url(history: true)]
+    public $assignedTo;
 
-    #[Url()]
+    #[Url(history: true)]
     public $perPage = 10;
 
     protected $listeners = ['filter-issues' => 'handleFilterIssues'];
@@ -98,6 +101,12 @@ class Index extends Component
             ->when($this->status !== '', function ($query) {
                 $query->where('status', $this->status);
             });
+        
+        // if(Auth::user()->role('admin') ){
+        //     $issueQuery->when($this->assignedTo !== '', function ($query) {
+        //         $query->where('assignedTo', $this->assignedTo);
+        //     });
+        // }
 
         if ($this->myIssues) {
             $issueQuery->where('created_by', Auth::user()->id);
@@ -105,6 +114,11 @@ class Index extends Component
 
         if ($this->assignedToMe) {
             $issueQuery->where('assigned_to', Auth::user()->id);
+        }
+
+        if($this->search){
+            $issueQuery->where('issue', 'like', '%' . $this->search . '%');
+                    //    ->orWhere('description', 'like', '%' . $this->search . '%');
         }
 
         return $issueQuery

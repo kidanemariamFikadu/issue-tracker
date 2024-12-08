@@ -4,6 +4,7 @@ namespace App\Livewire\Issues;
 
 use App\Models\Application;
 use App\Models\Category;
+use App\Models\User;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
@@ -18,6 +19,8 @@ class FilterIssues extends ModalComponent
     public $priority;
     #[Url(history: true)]
     public $status;
+    #[Url(history: true)]
+    public $assignedTo;
 
     function filterIssues()
     {
@@ -50,6 +53,7 @@ class FilterIssues extends ModalComponent
                 'categories' => Category::orderBy('name')->get(['name', 'id']),
                 'priorities' => ['Not set', 'Low', 'Medium', 'High'],
                 'statuses' => ['Open', 'In Progress', 'Resolved', 'Closed'],
+                'users' =>  User::role(['admin','dev'])->orderBy('name', 'asc')->get(),
             ]
         );
     }

@@ -84,7 +84,7 @@
                     <label for="attachments"
                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Attachments</label>
                     <input type="file" id="attachments" wire:model="attachments" accept="image/*,video/*" multiple
-                        class="mt-1 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-full file:text-sm file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                        class="mt-1 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-full file:text-sm file:bg-primary-50 file:text-primary-700 dark:file:bg-gray-700 dark:file:text-gray-300 hover:file:bg-primary-100 dark:hover:file:bg-gray-600">
                     @error('attachments.*')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
