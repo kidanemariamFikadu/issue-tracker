@@ -24,11 +24,7 @@
                             'displayName' => 'Name',
                         ])
                         <th scope="col" class="px-4 py-3">Email</th>
-                        @include('livewire.includes.table-sortable-th', [
-                            'name' => 'role',
-                            'displayName' => 'Role',
-                        ])
-                        {{-- <th scope="col" class="px-4 py-3">Status</th> --}}
+                        <th scope="col" class="px-4 py-3">Role</th>
                         <th scope="col" class="px-4 py-3">
                             <span class="sr-only">Actions</span>
                         </th>
