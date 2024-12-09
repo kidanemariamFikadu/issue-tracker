@@ -5,6 +5,9 @@ namespace App\Livewire\Issues;
 use App\Models\Application;
 use App\Models\Category;
 use App\Models\IssueReport;
+use App\Models\User;
+use App\Notifications\Issue\IssueCreatedNotification;
+use App\Notifications\Issue\IssueUpdatedNotification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -77,12 +80,19 @@ class CreateIssue extends ModalComponent
                 $path = $attachment->store('attachments', 'public');
                 $issueReport->attachments()->create(['url' => $path]);
             }
+            $admins = $this->getAdmins();
+
+            foreach ($admins as $admin) {
+                if ($admin->id !== Auth::id()) {
+                    $admin->notify(new IssueCreatedNotification($issueReport));
+                }
+            }
 
             // Reset form
             $this->reset(['issue', 'attachments', 'uploadedImages']);
 
             $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Issue created successfully']);
-        }else{
+        } else {
             $issueReport = IssueReport::find($this->issueId);
             $issueReport->update([
                 'application_id' => $this->application,
@@ -96,6 +106,18 @@ class CreateIssue extends ModalComponent
                 $issueReport->attachments()->create(['url' => $path]);
             }
 
+            $assignedTo = $issueReport->assignedTo;
+            $createdBy = $issueReport->createdBy;
+
+            if ($assignedTo && $assignedTo->id !== Auth::id() && $createdBy->id !== Auth::id()) {
+                $assignedTo->notify(new IssueUpdatedNotification($issueReport));
+                $createdBy->notify(new IssueUpdatedNotification($issueReport));
+            } elseif ($assignedTo && $assignedTo->id !== Auth::id()) {
+                $assignedTo->notify(new IssueUpdatedNotification($issueReport));
+            } elseif ($createdBy->id !== Auth::id()) {
+                $createdBy->notify(new IssueUpdatedNotification($issueReport));
+            }
+
             // Reset form
             $this->reset(['issue', 'attachments', 'uploadedImages']);
 
@@ -103,6 +125,11 @@ class CreateIssue extends ModalComponent
         }
         $this->dispatch('issue-changed');
         $this->closeModal();
+    }
+
+    public function getAdmins()
+    {
+        return User::role(['admin'])->orderBy('name', 'asc')->get();
     }
 
     public function render()

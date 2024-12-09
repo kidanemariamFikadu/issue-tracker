@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Category;
 use App\Models\IssueReport;
 use App\Models\User;
+use App\Notifications\Issue\IssueCommentedNotification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -72,6 +73,18 @@ class IssueDetail extends Component
             $comment->attachments()->create([
                 'url'=>$attachment->store('attachments','public')
             ]);
+        }
+
+        $previousCommentors = User::whereIn('id', $this->issue->comments()
+            ->select('created_by')
+            ->distinct()
+            ->get()
+            ->pluck('created_by'))
+            ->where('id', '!=', Auth::id())
+            ->get();
+
+        foreach ($previousCommentors as $user) {
+            $user->notify(new IssueCommentedNotification($this->issue));
         }
 
         $this->attachments=[];
