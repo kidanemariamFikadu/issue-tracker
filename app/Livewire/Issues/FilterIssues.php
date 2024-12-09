@@ -12,15 +12,28 @@ use LivewireUI\Modal\ModalComponent;
 class FilterIssues extends ModalComponent
 {
     #[Url(history: true)]
-    public $application;
+    public $search = '';
+
     #[Url(history: true)]
-    public $category;
+    public $application = '';
     #[Url(history: true)]
-    public $priority;
+    public $priority = '';
     #[Url(history: true)]
-    public $status;
+    public $status = '';
+    #[Url(history: true)]
+    public $category = '';
+
+    #[Url(history: true)]
+    public $sortBy = 'name';
+
+    #[Url(history: true)]
+    public $sortDir = 'ASC';
+    
     #[Url(history: true)]
     public $assignedTo;
+
+    #[Url(history: true)]
+    public $perPage = 10;
 
     function filterIssues()
     {

@@ -29,7 +29,7 @@ class Index extends Component
 
     #[Url(history: true)]
     public $sortDir = 'ASC';
-    
+
     #[Url(history: true)]
     public $assignedTo;
 
@@ -100,13 +100,10 @@ class Index extends Component
             })
             ->when($this->status !== '', function ($query) {
                 $query->where('status', $this->status);
+            })
+            ->when($this->search !== '', function ($query) {
+                $query->where('issue', 'like', "%{$this->search}%");
             });
-        
-        // if(Auth::user()->role('admin') ){
-        //     $issueQuery->when($this->assignedTo !== '', function ($query) {
-        //         $query->where('assignedTo', $this->assignedTo);
-        //     });
-        // }
 
         if ($this->myIssues) {
             $issueQuery->where('created_by', Auth::user()->id);
@@ -116,11 +113,6 @@ class Index extends Component
             $issueQuery->where('assigned_to', Auth::user()->id);
         }
 
-        if($this->search){
-            $issueQuery->where('issue', 'like', '%' . $this->search . '%');
-                    //    ->orWhere('description', 'like', '%' . $this->search . '%');
-        }
-
         return $issueQuery
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->perPage);
@@ -128,6 +120,33 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.issues.index', ['issueList', $this->issueList]);
+        $issueQuery = IssueReport::search($this->search)
+            ->when($this->application !== '', function ($query) {
+                $query->where('application_id', $this->application);
+            })
+            ->when($this->category !== '', function ($query) {
+                $query->where('category_id', $this->category);
+            })
+            ->when($this->priority !== '', function ($query) {
+                $query->where('priority', $this->priority);
+            })
+            ->when($this->status !== '', function ($query) {
+                $query->where('status', $this->status);
+            });
+
+        if ($this->myIssues) {
+            $issueQuery->where('created_by', Auth::user()->id);
+        }
+
+        if ($this->assignedToMe) {
+            $issueQuery->where('assigned_to', Auth::user()->id);
+        }
+
+        return view('livewire.issues.index', [
+            'issueList',
+            $issueQuery
+                ->orderBy($this->sortBy, $this->sortDir)
+                ->paginate($this->perPage)
+        ]);
     }
 }

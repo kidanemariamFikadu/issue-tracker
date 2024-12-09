@@ -99,7 +99,7 @@
                                 ])
                                 @include('livewire.includes.table-sortable-th', [
                                     'name' => 'priority',
-                                    'displayName' => 'RPIORITY',
+                                    'displayName' => 'PRIORITY',
                                 ])
                                 <th scope="col" class="px-4 py-3">Assigned to</th>
                                 @include('livewire.includes.table-sortable-th', [
