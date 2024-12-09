@@ -33,6 +33,11 @@ class IssueDetail extends Component
             
         }
     }
+
+    #[On('issue-changed')]
+    public function issueChanged()
+    {
+    }
     
     public function removeAttachment($index)
     {

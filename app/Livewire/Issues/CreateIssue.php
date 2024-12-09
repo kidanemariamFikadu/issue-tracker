@@ -38,7 +38,7 @@ class CreateIssue extends ModalComponent
             $this->application = $issue->application_id;
             $this->issue = $issue->issue;
             $this->description = $issue->description;
-            $this->uploadedImages = $issue->attachments->pluck('url')->toArray();
+            // $this->uploadedImages = $issue->attachments->pluck('url')->toArray();
         }
     }
 
@@ -64,24 +64,43 @@ class CreateIssue extends ModalComponent
     public function createIssue()
     {
         $this->validate();
+        if (!$this->issueId) {
+            $issueReport = IssueReport::create([
+                'application_id' => $this->application,
+                'created_by' => Auth::user()->id,
+                'issue' => $this->issue,
+                'description' => $this->description,
+            ]);
 
-        $issueReport = IssueReport::create([
-            'application_id' => $this->application,
-            'created_by' => Auth::user()->id,
-            'issue' => $this->issue,
-            'description' => $this->description,
-        ]);
+            // Save attachments
+            foreach ($this->uploadedImages as $attachment) {
+                $path = $attachment->store('attachments', 'public');
+                $issueReport->attachments()->create(['url' => $path]);
+            }
 
-        // Save attachments
-        foreach ($this->uploadedImages as $attachment) {
-            $path = $attachment->store('attachments', 'public');
-            $issueReport->attachments()->create(['url' => $path]);
+            // Reset form
+            $this->reset(['issue', 'attachments', 'uploadedImages']);
+
+            $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Issue created successfully']);
+        }else{
+            $issueReport = IssueReport::find($this->issueId);
+            $issueReport->update([
+                'application_id' => $this->application,
+                'issue' => $this->issue,
+                'description' => $this->description,
+            ]);
+
+            // Save attachments
+            foreach ($this->uploadedImages as $attachment) {
+                $path = $attachment->store('attachments', 'public');
+                $issueReport->attachments()->create(['url' => $path]);
+            }
+
+            // Reset form
+            $this->reset(['issue', 'attachments', 'uploadedImages']);
+
+            $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Issue updated successfully']);
         }
-
-        // Reset form
-        $this->reset(['issue', 'attachments', 'uploadedImages']);
-
-        $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Issue created successfully']);
         $this->dispatch('issue-changed');
         $this->closeModal();
     }
