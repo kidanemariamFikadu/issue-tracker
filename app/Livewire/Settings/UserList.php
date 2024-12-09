@@ -30,14 +30,6 @@ class UserList extends Component
     {
     }
 
-    function resetPassword($id)
-    {
-        $user = User::find($id);
-        $passwordStr = Str::random(8);
-        $user->password = bcrypt($passwordStr);
-        $user->save();
-    }
-
     public function render()
     {
         return view('livewire.settings.user-list',[

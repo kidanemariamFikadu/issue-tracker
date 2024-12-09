@@ -170,10 +170,13 @@
             @forelse ($issue->comments as $comment)
                 <div class="p-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                     <div class="flex justify-between items-center mb-2">
-                        <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $comment->createdBy?->name }}
-                        </p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ $comment->created_at->diffForHumans() }}
-                        </p>
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-gray-900 dark:text-white mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $comment->createdBy?->name }}</p>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ $comment->created_at->diffForHumans() }}</p>
                     </div>
                     <p class="text-sm text-gray-700 dark:text-gray-300">{{ $comment->comment }}</p>
                     @if ($comment->attachments->isNotEmpty())

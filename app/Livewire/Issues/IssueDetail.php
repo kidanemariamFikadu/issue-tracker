@@ -59,7 +59,7 @@ class IssueDetail extends Component
         ]);
 
         $comment = $this->issue->comments()->create([
-            'user_id'=>Auth::id(),
+            'created_by'=>Auth::id(),
             'comment'=>$this->newComment
         ]);
 
