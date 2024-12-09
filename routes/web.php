@@ -25,4 +25,6 @@ Route::middleware([
     Route::get('/issue-detail/{issue}', \App\Livewire\Issues\IssueDetail::class)->name('issue-detail');
 
     Route::get('/reports', \App\Livewire\Report\Index::class)->name('reports');
+
+    Route::get('/notifications',\App\Livewire\Notification::class)->name('notifications');
 });

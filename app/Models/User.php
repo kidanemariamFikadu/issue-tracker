@@ -67,4 +67,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /** 
+     * get number of notifications 
+     */
+
+    public function unreadNotificationsCount(): int
+    {
+        return $this->unreadNotifications->count();
+    }
 }
