@@ -25,10 +25,10 @@ class Index extends Component
     public $category = '';
 
     #[Url(history: true)]
-    public $sortBy = 'name';
+    public $sortBy = 'created_at';
 
     #[Url(history: true)]
-    public $sortDir = 'ASC';
+    public $sortDir = 'DESC';
 
     #[Url(history: true)]
     public $assignedTo;
