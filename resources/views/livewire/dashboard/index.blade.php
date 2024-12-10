@@ -22,9 +22,12 @@
 
     <section class="mt-10">
         <div >
-            <h2 class="text-2xl mb-3">Issues List</h2>
+            
             <!-- Start coding here -->
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+                <div class="flex items-center justify-between d p-4">
+                    <h2 class="text-2xl mb-3 text-gray-900 dark:text-gray-100">Issues List</h2>
+                </div>
                 <div class="overflow-x-auto">
                     {{-- <button wire:click="deleteSelected"
                         @click="if (confirm('Are you sure you want to delete selected records?')) $wire.deleteSelected()"
