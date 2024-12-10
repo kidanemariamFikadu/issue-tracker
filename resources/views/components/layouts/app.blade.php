@@ -100,7 +100,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li>
+                            <li class="relative">
                                 <a href="/notifications"
                                     class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'notifications' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"

@@ -30,10 +30,20 @@ class Notification extends Component
         
     }
 
+    function markAsReadAndRedirect($notificationId, $redirectUrl)
+    {
+        $notification = Auth::user()->notifications->where('id', $notificationId)->first();
+        if ($notification) {
+            $notification->markAsRead();
+        }
+        $this->dispatch('notification-read');
+        return redirect($redirectUrl);
+    }
+    
     public function render()
     {
         return view('livewire.notification', [
-            'notifications' => Auth::user()->unreadNotifications->toArray(),
+            'notifications' => Auth::user()->notifications->toArray(),
         ]);
     }
 }
