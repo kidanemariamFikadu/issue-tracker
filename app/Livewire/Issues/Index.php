@@ -45,6 +45,7 @@ class Index extends Component
         $this->category = $data['category'];
         $this->priority = $data['priority'];
         $this->status = $data['status'];
+        $this->assignedTo = $data['assignedTo'];
         // $this->search();
     }
 
@@ -112,6 +113,10 @@ class Index extends Component
         if ($this->assignedToMe) {
             $issueQuery->where('assigned_to', Auth::user()->id);
         }
+        
+        if($this->assignedTo){
+            $issueQuery->where('assigned_to', $this->assignedTo);
+        }
 
         return $issueQuery
             ->orderBy($this->sortBy, $this->sortDir)
@@ -140,6 +145,10 @@ class Index extends Component
 
         if ($this->assignedToMe) {
             $issueQuery->where('assigned_to', Auth::user()->id);
+        }
+
+        if($this->assignedTo){
+            $issueQuery->where('assigned_to', $this->assignedTo);
         }
 
         return view('livewire.issues.index', [

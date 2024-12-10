@@ -42,6 +42,7 @@ class FilterIssues extends ModalComponent
             'category' => $this->category,
             'priority' => $this->priority,
             'status' => $this->status,
+            'assignedTo' => $this->assignedTo,
         ]);
         $this->closeModal();
     }
@@ -53,6 +54,7 @@ class FilterIssues extends ModalComponent
             'category' => "",
             'priority' => "",
             'status' => "",
+            'assignedTo' => "",
         ]);
         $this->closeModal();
     }
