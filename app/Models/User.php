@@ -79,6 +79,6 @@ class User extends Authenticatable
 
     public function scopeSearch($query, $value)
     {
-        $query->where('issue', 'like', "%{$value}%"); 
+        $query->where('name', 'like', "%{$value}%"); 
     }
 }
