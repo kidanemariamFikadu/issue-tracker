@@ -21,8 +21,8 @@ class IssueDetail extends Component
     public $newComment;
     public IssueReport $issue;
 
-    public $attachments=[];
-    public $uploadedImages=[];
+    public $attachments = [];
+    public $uploadedImages = [];
 
     #[On('issue-detail-changed')]
     function mount()
@@ -31,7 +31,7 @@ class IssueDetail extends Component
         if ($issue instanceof IssueReport) {
             $this->issue = $issue;
         } else {
-            
+
         }
     }
 
@@ -39,7 +39,7 @@ class IssueDetail extends Component
     public function issueChanged()
     {
     }
-    
+
     public function removeAttachment($index)
     {
         unset($this->attachments[$index]); // Remove the file
@@ -59,19 +59,20 @@ class IssueDetail extends Component
         }
     }
 
-    public function addComment(){
+    public function addComment()
+    {
         $this->validate([
-            'newComment'=>'required|min:3'
+            'newComment' => 'required|min:3'
         ]);
 
         $comment = $this->issue->comments()->create([
-            'created_by'=>Auth::id(),
-            'comment'=>$this->newComment
+            'created_by' => Auth::id(),
+            'comment' => $this->newComment
         ]);
 
         foreach ($this->attachments as $attachment) {
             $comment->attachments()->create([
-                'url'=>$attachment->store('attachments','public')
+                'url' => $attachment->store('attachments', 'public')
             ]);
         }
 
@@ -83,24 +84,32 @@ class IssueDetail extends Component
             ->where('id', '!=', Auth::id())
             ->get();
 
+        $previousAssignedUser = $this->issue->assigned_to !== Auth::id() ? User::find($this->issue->assigned_to) : null;
+
+        if ($previousAssignedUser) {
+            $previousAssignedUser->notify(new IssueCommentedNotification($this->issue));
+        }
+
         foreach ($previousCommentors as $user) {
             $user->notify(new IssueCommentedNotification($this->issue));
         }
 
-        $this->attachments=[];
-        $this->uploadedImages=[];
-        $this->newComment='';
+        $this->attachments = [];
+        $this->uploadedImages = [];
+        $this->newComment = '';
         $this->issue->refresh();
     }
 
 
     public function render()
     {
-        return view('livewire.issues.issue-detail',[
-            'applications'=>Application::orderBy('name','asc')->get(),
-            'categories'=>Category::orderBy('name','asc')->get(),
-            'users'=>User::orderBy('name','asc')->get(),
-        ]
-    );
+        return view(
+            'livewire.issues.issue-detail',
+            [
+                'applications' => Application::orderBy('name', 'asc')->get(),
+                'categories' => Category::orderBy('name', 'asc')->get(),
+                'users' => User::orderBy('name', 'asc')->get(),
+            ]
+        );
     }
 }
