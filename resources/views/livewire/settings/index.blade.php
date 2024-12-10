@@ -13,12 +13,12 @@
 
     <ul class="flex border-b dark:border-gray-700">
         <li class="mr-1">
-            <a :class="{ 'bg-white dark:bg-gray-900 dark:text-white': tab === 'settings', 'bg-gray-200 dark:bg-gray-700 dark:text-gray-300': tab !== 'settings' }" 
+            <a :class="{ 'bg-blue-500 text-white dark:bg-blue-700 dark:text-white': tab === 'settings', 'bg-gray-200 dark:bg-gray-700 dark:text-gray-300': tab !== 'settings' }" 
                class="inline-block py-2 px-4 font-semibold cursor-pointer" 
                @click="tab = 'settings'">Settings</a>
         </li>
         <li class="mr-1">
-            <a :class="{ 'bg-white dark:bg-gray-900 dark:text-white': tab === 'users', 'bg-gray-200 dark:bg-gray-700 dark:text-gray-300': tab !== 'users' }" 
+            <a :class="{ 'bg-blue-500 text-white dark:bg-blue-700 dark:text-white': tab === 'users', 'bg-gray-200 dark:bg-gray-700 dark:text-gray-300': tab !== 'users' }" 
                class="inline-block py-2 px-4 font-semibold cursor-pointer" 
                @click="tab = 'users'">Users</a>
         </li>
