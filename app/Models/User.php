@@ -76,4 +76,9 @@ class User extends Authenticatable
     {
         return $this->unreadNotifications->count();
     }
+
+    public function scopeSearch($query, $value)
+    {
+        $query->where('issue', 'like', "%{$value}%"); 
+    }
 }
