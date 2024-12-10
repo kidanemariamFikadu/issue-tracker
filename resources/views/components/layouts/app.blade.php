@@ -58,21 +58,21 @@
                             class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                             <li>
                                 <a href="/"
-                                    class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Dashboard</a>
+                                    class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'dashboard' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">Dashboard</a>
                             </li>
                             <li>
                                 <a href="/issues"
-                                    class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Issues</a>
+                                    class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'issues' || request()->route()->getName() == 'issue-detail' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">Issues</a>
                             </li>
                             @role('admin')
                                 <li>
                                     <a href="/settings"
-                                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Settings</a>
+                                        class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'setting' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">Settings</a>
                                 </li>
                             @endrole
                             <li>
                                 <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
-                                    class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                                    class="flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent {{ request()->route()->getName() == 'my-profile' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">
                                     {{ Auth::user()->name }}
                                     <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
                                         xmlns="https://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -86,7 +86,7 @@
                                         aria-labelledby="dropdownLargeButton">
                                         <li>
                                             <a href="{{ route('my-profile') }}"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ request()->route()->getName() == 'my-profile' ? 'bg-gray-100 dark:bg-gray-600 text-blue-500' : 'text-gray-700 dark:text-white' }}">Profile</a>
                                         </li>
                                     </ul>
                                     <div class="py-1">
@@ -102,7 +102,7 @@
                             </li>
                             <li>
                                 <a href="/notifications"
-                                    class="relative block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                                    class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'notifications' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
