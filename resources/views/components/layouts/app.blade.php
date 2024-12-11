@@ -104,9 +104,9 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="relative">
-                                <a href="/notifications"
-                                    class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'notifications' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">
+                            <li>
+                                <button id="dropdownNavbarLink" data-dropdown-toggle="notification-bar"
+                                    class="relative flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent {{ request()->route()->getName() == 'notifications' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -119,7 +119,12 @@
                                             {{ Auth::user()->unreadNotifications->count() }}
                                         </span>
                                     @endif
-                                </a>
+                                </button>
+                                <!-- Dropdown menu -->
+                                <div id="notification-bar"
+                                    class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-1/3 dark:bg-gray-700 dark:divide-gray-600">
+                                    @livewire('notification-popup')
+                                </div>
                             </li>
                         </ul>
                     </div>
