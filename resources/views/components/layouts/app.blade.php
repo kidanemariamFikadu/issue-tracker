@@ -66,12 +66,12 @@
                             </li>
                             @role('admin')
                                 <li>
-                                    <a href="/settings"
-                                        class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'setting' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">Settings</a>
-                                </li>
-                                <li>
                                     <a href="/reports"
                                         class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'reports' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">Report</a>
+                                </li>
+                                <li>
+                                    <a href="/settings"
+                                        class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'setting' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">Settings</a>
                                 </li>
                             @endrole
                             <li>
