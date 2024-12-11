@@ -69,6 +69,10 @@
                                     <a href="/settings"
                                         class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'setting' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">Settings</a>
                                 </li>
+                                <li>
+                                    <a href="/reports"
+                                        class="block py-2 px-3 rounded md:border-0 md:hover:text-blue-700 md:p-0 {{ request()->route()->getName() == 'reports' ? 'text-blue-700 dark:text-blue-500' : 'text-gray-700 dark:text-white' }}">Report</a>
+                                </li>
                             @endrole
                             <li>
                                 <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
@@ -214,7 +218,7 @@
             }, 5000);
         });
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>
