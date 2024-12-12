@@ -1,4 +1,4 @@
-<div x-data="{ tab: 'settings' }" class="dark:bg-gray-800 dark:text-gray-200">
+<div x-data="{ tab: 'general-report' }" class="dark:bg-gray-800 dark:text-gray-200">
     @if (session('error'))
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-3 rounded relative dark:bg-red-200 dark:text-red-900"
             role="alert">
