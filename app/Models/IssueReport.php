@@ -21,6 +21,7 @@ class IssueReport extends Model
         'updated_by',
         'deleted_by',
         'deleted_at',
+        'agent_id',
     ];
 
     public function application()
@@ -61,6 +62,11 @@ class IssueReport extends Model
     public function attachments()
     {
         return $this->hasMany(Attachment::class);
+    }
+
+    public function agent()
+    {
+        return $this->belongsTo(LershaAgent::class);
     }
 
     public function scopeSearch($query, $value)

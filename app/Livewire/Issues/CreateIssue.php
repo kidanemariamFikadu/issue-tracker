@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Category;
 use App\Models\IssueReport;
 use App\Models\User;
+use App\Models\LershaAgent;
 use App\Notifications\Issue\IssueCreatedNotification;
 use App\Notifications\Issue\IssueUpdatedNotification;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ class CreateIssue extends ModalComponent
     public $uploadedImages = []; // Holds preview URLs for the files
 
     public $issueId;
+    public $agentId;
 
     public function mount($issueId = null)
     {
@@ -41,6 +43,7 @@ class CreateIssue extends ModalComponent
             $this->application = $issue->application_id;
             $this->issue = $issue->issue;
             $this->description = $issue->description;
+            $this->agentId = $issue->agent_id;
             // $this->uploadedImages = $issue->attachments->pluck('url')->toArray();
         }
     }
@@ -73,6 +76,7 @@ class CreateIssue extends ModalComponent
                 'created_by' => Auth::user()->id,
                 'issue' => $this->issue,
                 'description' => $this->description,
+                'agent_id'=>$this->agentId,
             ]);
 
             // Save attachments
@@ -98,6 +102,7 @@ class CreateIssue extends ModalComponent
                 'application_id' => $this->application,
                 'issue' => $this->issue,
                 'description' => $this->description,
+                'agent_id'=>$this->agentId,
             ]);
 
             // Save attachments
@@ -137,6 +142,7 @@ class CreateIssue extends ModalComponent
         return view('livewire.issues.create-issue', [
             'applications' => Application::orderBy('name', 'asc')->get(),
             'categories' => Category::orderBy('name', 'asc')->get(),
+            'agents' => LershaAgent::orderBy('first_name', 'asc')->get(),
         ]);
     }
 }

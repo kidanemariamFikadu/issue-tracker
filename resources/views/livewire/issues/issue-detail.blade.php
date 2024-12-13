@@ -13,29 +13,29 @@
         <div class="flex justify-between items-center">
             <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Issue Details</h2>
             <div>
-            @role('admin')
-                @if ($issue->status != 'Closed' && $issue->status != 'Resolved')
-                <button
-                    wire:click="$dispatch('openModal', { component: 'issues.assign-issue', arguments: { issueId: {{ $issue->id }} }})"
-                    class="px-4 py-2 border border-blue-600 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    Assign Issue
-                </button>
+                @role('admin')
+                    @if ($issue->status != 'Closed' && $issue->status != 'Resolved')
+                        <button
+                            wire:click="$dispatch('openModal', { component: 'issues.assign-issue', arguments: { issueId: {{ $issue->id }} }})"
+                            class="px-4 py-2 border border-blue-600 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            Assign Issue
+                        </button>
+                    @endif
+                @endrole
+                @role('admin|dev')
+                    <button
+                        wire:click="$dispatch('openModal', { component: 'issues.manage-issues', arguments: { issueId: {{ $issue->id }} }})"
+                        class="px-4 py-2 border border-blue-600 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Manage Issue
+                    </button>
+                @endrole
+                @if ($issue->status != 'Closed' && $issue->status != 'Resolved' && auth()->user()->id == $issue->created_by)
+                    <button
+                        wire:click="$dispatch('openModal', { component: 'issues.create-issue', arguments: { issueId: {{ $issue->id }} }})"
+                        class="px-4 py-2 border border-blue-600 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Edit Issue
+                    </button>
                 @endif
-            @endrole
-            @role('admin|dev')
-                <button
-                wire:click="$dispatch('openModal', { component: 'issues.manage-issues', arguments: { issueId: {{ $issue->id }} }})"
-                class="px-4 py-2 border border-blue-600 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                Manage Issue
-                </button>
-            @endrole
-            @if ($issue->status != 'Closed' && $issue->status != 'Resolved' && auth()->user()->id == $issue->created_by)
-                <button
-                wire:click="$dispatch('openModal', { component: 'issues.create-issue', arguments: { issueId: {{ $issue->id }} }})"
-                class="px-4 py-2 border border-blue-600 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                Edit Issue
-                </button>
-            @endif
             </div>
         </div>
         <div class="mt-4">
@@ -47,6 +47,16 @@
                 <tr class="px-4 py-3">
                     <td class="font-medium">Category:</td>
                     <td>{{ $issue->category_id ? $issue->category->name : 'Category not selected' }}</td>
+                </tr>
+                <tr class="px-4 py-3">
+                    <td class="font-medium">Agent:</td>
+                    <td>
+                        @if ($issue->agent)
+                            {{ $issue->agent?->first_name . ' ' . $issue->agent?->last_name . ' (' . $issue->agent?->phone . ') ' }}
+                        @else
+                            Agent not selected
+                        @endif
+                    </td>
                 </tr>
                 <tr class="px-4 py-3">
                     <td class="font-medium">Issue:</td>
@@ -171,12 +181,17 @@
                 <div class="p-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                     <div class="flex justify-between items-center mb-2">
                         <div class="flex items-center">
-                            <svg class="w-4 h-4 text-gray-900 dark:text-white mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            <svg class="w-4 h-4 text-gray-900 dark:text-white mr-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                             </svg>
-                            <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $comment->createdBy?->name }}</p>
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">
+                                {{ $comment->createdBy?->name }}</p>
                         </div>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ $comment->created_at->diffForHumans() }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ $comment->created_at->diffForHumans() }}
+                        </p>
                     </div>
                     <p class="text-sm text-gray-700 dark:text-gray-300">{{ $comment->comment }}</p>
                     @if ($comment->attachments->isNotEmpty())
