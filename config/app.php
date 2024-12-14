@@ -123,4 +123,13 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    * lersha App configuration
+    */
+    'lersha' => [
+        'url' => env('LERSHA_URL'),
+        'username' => env('LERSHA_USERNAME'),
+        'password' => env('LERSHA_PASSWORD'),
+    ],
+
 ];

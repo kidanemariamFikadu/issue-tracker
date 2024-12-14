@@ -28,10 +28,9 @@ class GetLershAgentCommand extends Command
     public function handle()
     {
         //get lesha url and credentials from env
-        $url = env('LERSHA_URL');
-        $username = env('LERSHA_USERNAME');
-        $password = env('LERSHA_PASSWORD');
-
+        $url = config('app.lersha.url');
+        $username = config('app.lersha.username');
+        $password = config('app.lersha.password');
         logger('URL: ' . $url);
 
         //login and get the token from Lersha System
