@@ -25,4 +25,6 @@ Route::middleware([
     Route::get('/notifications',\App\Livewire\Notification::class)->name('notifications');
 
     Route::get('/',\App\Livewire\Dashboard\Index::class)->name('dashboard');
+
+    Route::get('/user-manuals', \App\Livewire\UserManual\Index::class)->name('user-manuals');
 });
