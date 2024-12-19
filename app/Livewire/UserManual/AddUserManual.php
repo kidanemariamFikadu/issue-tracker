@@ -46,7 +46,8 @@ class AddUserManual extends ModalComponent
         }
 
         if ($this->userManualId) {
-            $this->userManual->update([
+            $userManual= UserManual::find($this->userManualId);
+            $userManual->update([
                 'title' => $this->title,
                 'url' => $this->url,
                 'sequence' => $this->sequence,
