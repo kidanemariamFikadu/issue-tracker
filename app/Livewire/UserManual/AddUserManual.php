@@ -10,15 +10,21 @@ class AddUserManual extends ModalComponent
     public $sequence;
     public $title;
     public $url;
-
-    public UserManual $userManual;
+    public $userManualId;
 
     function mount($userManualId = null)
     {
-        $this->userManual = $userManualId ? UserManual::find($userManualId) : new UserManual();
-        $this->sequence = $this->userManual->sequence;
-        $this->title = $this->userManual->title;
-        $this->url = $this->userManual->url;
+        $this->userManualId = $userManualId;
+        $lastSquence = UserManual::orderBy('sequence', 'desc')->first();
+        $this->sequence = $lastSquence ? $lastSquence->sequence + 1 : 1;
+
+        $userManual = $userManualId ? UserManual::find($userManualId) : new UserManual();
+        if ($userManual->exists) {
+            $this->sequence = $userManual->sequence;
+            $this->title = $userManual->title;
+            $this->url = $userManual->url;
+        }
+
     }
 
     protected $rules = [
@@ -31,21 +37,21 @@ class AddUserManual extends ModalComponent
     {
         $this->validate();
         // Check for duplicate sequence only if the sequence has changed
-        if ($this->userManual->exists && $this->userManual->sequence != $this->sequence) {
+        if ($this->userManualId) {
             $duplicateSequence = UserManual::where('sequence', $this->sequence)->first();
             if ($duplicateSequence) {
-            $this->addError('sequence', 'Sequence already exists');
-            return;
+                $this->addError('sequence', 'Sequence already exists');
+                return;
             }
-        } elseif (!$this->userManual->exists) {
+        } elseif (!$this->userManualId) {
             $duplicateSequence = UserManual::where('sequence', $this->sequence)->first();
             if ($duplicateSequence) {
-            $this->addError('sequence', 'Sequence already exists');
-            return;
+                $this->addError('sequence', 'Sequence already exists');
+                return;
             }
         }
 
-        if ($this->userManual) {
+        if ($this->userManualId) {
             $this->userManual->update([
                 'title' => $this->title,
                 'url' => $this->url,
@@ -67,9 +73,6 @@ class AddUserManual extends ModalComponent
 
     public function render()
     {
-        $lastSquence = UserManual::orderBy('sequence', 'desc')->first();
-        return view('livewire.user-manual.add-user-manual', [
-            $this->sequence = $lastSquence ? $lastSquence->sequence + 1 : 1,
-        ]);
+        return view('livewire.user-manual.add-user-manual');
     }
 }

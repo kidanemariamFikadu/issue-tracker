@@ -31,7 +31,6 @@
                     <label for="title"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                     <input type="text" name="title" id="title" wire:model='title'
-                        value="{{ $userManual->title }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Enter title">
                     @error('title')
@@ -42,7 +41,7 @@
                 <div class="col-span-2 sm:col-span-2">
                     <label for="url"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">url</label>
-                    <input type="text" name="url" id="url" wire:model='url' value="{{ $userManual->url }}"
+                    <input type="text" name="url" id="url" wire:model='url' 
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Enter url">
                     @error('url')
@@ -53,7 +52,7 @@
                 <div class="col-span-2 sm:col-span-2">
                     <label for="sequence"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sequence</label>
-                    <input type="text" name="sequence" id="sequence" wire:model='sequence' value="{{ $userManual->sequence }}"
+                    <input type="text" name="sequence" id="sequence" wire:model='sequence'
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Enter sequence">
                     @error('sequence')
