@@ -37,18 +37,12 @@ class AddUserManual extends ModalComponent
     {
         $this->validate();
         // Check for duplicate sequence only if the sequence has changed
-        if ($this->userManualId) {
-            $duplicateSequence = UserManual::where('sequence', $this->sequence)->first();
-            if ($duplicateSequence) {
-                $this->addError('sequence', 'Sequence already exists');
-                return;
-            }
-        } elseif (!$this->userManualId) {
-            $duplicateSequence = UserManual::where('sequence', $this->sequence)->first();
-            if ($duplicateSequence) {
-                $this->addError('sequence', 'Sequence already exists');
-                return;
-            }
+        $duplicateSequence = UserManual::where('sequence', $this->sequence)
+            ->where('id', '!=', $this->userManualId)
+            ->first();
+        if ($duplicateSequence) {
+            $this->addError('sequence', 'Sequence already exists');
+            return;
         }
 
         if ($this->userManualId) {
