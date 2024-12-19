@@ -39,6 +39,8 @@ class GetLershAgentCommand extends Command
             'password' => $password,
         ]);
 
+        logger('Response: ' . $response->body());
+
         $token = $response->json()['token'];
 
         //get agents from Lersha System

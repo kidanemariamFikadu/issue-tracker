@@ -3,6 +3,7 @@
 namespace App\Livewire\UserManual;
 
 use App\Models\UserManual;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Index extends Component
