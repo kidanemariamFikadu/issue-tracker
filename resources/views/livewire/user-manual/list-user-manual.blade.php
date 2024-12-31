@@ -36,8 +36,7 @@
                     <tr>
                         <th scope="col" class="px-4 py-3">Title</th>
                         <th scope="col" class="px-4 py-3">Url</th>
-                            <span class="sr-only">Actions</span>
-                        </th>
+                        <th scope="col" class="px-4 py-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
