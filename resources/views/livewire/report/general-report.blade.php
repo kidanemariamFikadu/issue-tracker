@@ -66,7 +66,7 @@
         </div>
         <div class="flex flex-col">
             <button type="submit" wire:click="exportReport" title="Export Report"
-                class="px-4 py-2 text-blue-500 border border-blue-500 dark:text-blue-700 dark:border-blue-700 rounded-md hover:bg-blue-500 hover:text-white dark:hover:bg-blue-700 dark:hover:text-black">
+                class="px-3 py-1 rounded bg-gray-200 text-black hover:bg-blue-500 hover:text-white">
                 <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -56,18 +56,18 @@
                     </div> --}}
                     <div class="flex justify-between mb-4">
                         <button wire:click="$dispatch('openModal', { component: 'issues.create-issue' })"
-                            class="px-3 py-1 bg-blue-500 text-white rounded mr-2">+ Add issue</button>
+                            class="px-3 py-1 bg-blue-500 text-white rounded mr-2 hover:bg-blue-400">+ Add issue</button>
                         <div class="flex space-x-2">
                             <button wire:click="toggleMyIssues"
                                 class="px-3 py-1 rounded 
-                            {{ $this->myIssues ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black' }}">
+                            {{ $this->myIssues ? 'bg-blue-500 text-white  hover:bg-gray-200' : 'bg-gray-200 text-black  hover:bg-blue-500 hover:text-white'  }}">
                                 My Issues
                             </button>
 
                             @role('dev')
                                 <button wire:click="toggleAssignedToMe"
                                     class="px-3 py-1 rounded 
-                            {{ $this->assignedToMe ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black' }}">
+                            {{ $this->assignedToMe ? 'bg-blue-500 text-white  hover:bg-gray-200 ' : 'bg-gray-200 text-black  hover:bg-blue-500 hover:text-white' }}">
                                     Assigned to me
                                 </button>
                             @endrole
@@ -75,7 +75,7 @@
                             @role('admin')
                                 <div class="flex flex-col">
                                     <button wire:click="exportIssues"
-                                        class="px-3 py-1 rounded bg-gray-200 text-black' }}">
+                                        class="px-3 py-1 rounded bg-gray-200 text-black hover:bg-blue-500 hover:text-white">
                                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
