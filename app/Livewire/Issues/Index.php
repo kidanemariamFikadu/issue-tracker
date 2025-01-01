@@ -89,6 +89,15 @@ class Index extends Component
 
     public function getIssueListProperty()
     {
+
+        $issueQuery = $this->queryIssues();
+        return $issueQuery
+            ->orderBy($this->sortBy, $this->sortDir)
+            ->paginate($this->perPage);
+    }
+
+    function queryIssues()
+    {
         $issueQuery = IssueReport::search($this->search)
             ->when($this->application !== '', function ($query) {
                 $query->where('application_id', $this->application);
@@ -113,28 +122,29 @@ class Index extends Component
         if ($this->assignedToMe) {
             $issueQuery->where('assigned_to', Auth::user()->id);
         }
-        
-        if($this->assignedTo){
+
+        if ($this->assignedTo) {
             $issueQuery->where('assigned_to', $this->assignedTo);
         }
-
-        return $issueQuery
-            ->orderBy($this->sortBy, $this->sortDir)
-            ->paginate($this->perPage);
+        return $issueQuery;
     }
 
-    public function exportIssues(){
+    public function exportIssues()
+    {
         $filename = 'issues-report-' . now()->format('Y-m-d') . '.csv';
         $headers = [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ];
+        $issueQuery = $this->queryIssues();
 
-        $callback = function () {
+        $issues = $issueQuery->get();
+
+        $callback = function () use ($issues) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, ['Issue','Description', 'Application', 'Category', 'Priority', 'Status', 'Created At', 'Updated At', 'Created By', 'Assigned To']);
+            fputcsv($file, ['Issue', 'Description', 'Application', 'Category', 'Priority', 'Status', 'Created At', 'Updated At', 'Created By', 'Assigned To']);
 
-            foreach ($this->issueList as $row) {
+            foreach ($issues as $row) {
                 fputcsv($file, [
                     $row->issue,
                     $row->description,
@@ -179,7 +189,7 @@ class Index extends Component
             $issueQuery->where('assigned_to', Auth::user()->id);
         }
 
-        if($this->assignedTo){
+        if ($this->assignedTo) {
             $issueQuery->where('assigned_to', $this->assignedTo);
         }
 
