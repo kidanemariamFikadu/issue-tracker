@@ -21,7 +21,7 @@ class GeneralReport extends Component
 
     public function mount()
     {
-        // $this->weekDate = \Carbon\Carbon::now();
+        $this->weekDate = \Carbon\Carbon::parse(now())->format('Y-m-d');
         $this->issuesPerPeriod();
     }
 

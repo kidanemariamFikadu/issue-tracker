@@ -4,25 +4,27 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-green-100 p-4 rounded shadow">
             <h2 class="text-xl font-semibold mb-2">Open Issues</h2>
-            <p class="text-gray-600 text-2xl font-bold">{{ $weeklyIssueStat->open }}</p>
+            <p class="text-gray-600 text-2xl font-bold">{{ $weeklyIssueStat->open ? $weeklyIssueStat->open : 0 }}</p>
         </div>
         <div class="bg-yellow-100 p-4 rounded shadow">
             <h2 class="text-xl font-semibold mb-2">In Progress</h2>
-            <p class="text-gray-600 text-2xl font-bold">{{ $weeklyIssueStat->inprogress }}</p>
+            <p class="text-gray-600 text-2xl font-bold">{{ $weeklyIssueStat->inprogress ? $weeklyIssueStat->inprogress : 0 }}
+            </p>
         </div>
         <div class="bg-red-100 p-4 rounded shadow">
             <h2 class="text-xl font-semibold mb-2">Closed Issues</h2>
-            <p class="text-gray-600 text-2xl font-bold">{{ $weeklyIssueStat->closed }}</p>
+            <p class="text-gray-600 text-2xl font-bold">{{ $weeklyIssueStat->closed ? $weeklyIssueStat->closed : 0 }}</p>
         </div>
         <div class="bg-blue-100 p-4 rounded shadow">
             <h2 class="text-xl font-semibold mb-2">Resolved Issues</h2>
-            <p class="text-gray-600 text-2xl font-bold">{{ $weeklyIssueStat->resolved }}</p>
+            <p class="text-gray-600 text-2xl font-bold">{{ $weeklyIssueStat->resolved ? $weeklyIssueStat->resolved : 0 }}
+            </p>
         </div>
     </div>
 
     <section class="mt-10">
-        <div >
-            
+        <div>
+
             <!-- Start coding here -->
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                 <div class="flex items-center justify-between d p-4">
