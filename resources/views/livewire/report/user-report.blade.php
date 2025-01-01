@@ -52,6 +52,16 @@
         <div class="flex flex-col">
             <button type="submit" class="px-4 py-2 text-white bg-blue-500 dark:bg-blue-700 rounded-md hover:bg-blue-600 dark:hover:bg-blue-800">Generate Report</button>
         </div>
+        <div class="flex flex-col">
+            <button type="submit" wire:click="exportReport" title="Export Report"
+                class="px-4 py-2 text-blue-500 border border-blue-500 dark:text-blue-700 dark:border-blue-700 rounded-md hover:bg-blue-500 hover:text-white dark:hover:bg-blue-700 dark:hover:text-black">
+                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 10V4a1 1 0 0 0-1-1H9.914a1 1 0 0 0-.707.293L5.293 7.207A1 1 0 0 0 5 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2M10 3v4a1 1 0 0 1-1 1H5m5 6h9m0 0-2-2m2 2-2 2" />
+                </svg>
+            </button>
+        </div>
     </form>
 
     

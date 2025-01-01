@@ -17,7 +17,7 @@ class UserReport extends Component
     public $year;
 
     public $reportData;
-    public $user=null;
+    public $user = null;
 
     public function mount()
     {
@@ -117,7 +117,7 @@ class UserReport extends Component
         }
 
         $query->whereBetween('created_at', [$start, $end])
-              ->where('assigned_to', $this->user);
+            ->where('assigned_to', $this->user);
 
         $this->reportData = $query->selectRaw('COUNT(*) as total, 
               SUM(status = "Closed") as closed, 
@@ -128,6 +128,30 @@ class UserReport extends Component
             ->groupBy('period')
             ->orderBy('period')
             ->get()->toArray();
+    }
+
+    public function exportReport()
+    {
+        $this->issuesPerPeriod();
+        $user=User::find($this->user);
+        $filename = $user?->name . '-report-' . now()->format('Y-m-d') . '.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function () {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, ['Total', 'Closed', 'Open', 'In Progress', 'Resolved', 'Period']);
+
+            foreach ($this->reportData as $row) {
+                fputcsv($file, $row);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 
     function generateReport()

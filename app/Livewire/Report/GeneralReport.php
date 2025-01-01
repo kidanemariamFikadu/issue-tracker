@@ -124,6 +124,29 @@ class GeneralReport extends Component
             ->get()->toArray();
     }
 
+    public function exportReport()
+    {
+        $this->issuesPerPeriod();
+        $filename = 'general-report-' . now()->format('Y-m-d') . '.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function () {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, ['Total', 'Closed', 'Open', 'In Progress', 'Resolved','Period']);
+
+            foreach ($this->reportData as $row) {
+                fputcsv($file, $row);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     function generateReport()
     {
         $this->issuesPerPeriod();
