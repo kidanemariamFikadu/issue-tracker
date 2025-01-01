@@ -123,6 +123,38 @@ class Index extends Component
             ->paginate($this->perPage);
     }
 
+    public function exportIssues(){
+        $filename = 'issues-report-' . now()->format('Y-m-d') . '.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function () {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, ['Issue','Description', 'Application', 'Category', 'Priority', 'Status', 'Created At', 'Updated At', 'Created By', 'Assigned To']);
+
+            foreach ($this->issueList as $row) {
+                fputcsv($file, [
+                    $row->issue,
+                    $row->description,
+                    $row->application?->name,
+                    $row->category?->name,
+                    $row->priority,
+                    $row->status,
+                    $row->created_at,
+                    $row->updated_at,
+                    $row->createdBy?->name,
+                    $row->assignedTo?->name,
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function render()
     {
         $issueQuery = IssueReport::search($this->search)
