@@ -26,5 +26,7 @@ Route::middleware([
 
     Route::get('/',\App\Livewire\Dashboard\Index::class)->name('dashboard');
 
+    Route::get('/dashboard',\App\Livewire\Dashboard\Index::class)->name('dashboard');
+
     Route::get('/user-manuals', \App\Livewire\UserManual\Index::class)->name('user-manuals');
 });
