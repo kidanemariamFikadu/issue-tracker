@@ -10,6 +10,7 @@ class IssueReport extends Model
     use HasFactory;
 
     protected $fillable = [
+        'issue_number',
         'application_id',
         'category_id',
         'issue',

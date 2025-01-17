@@ -12,7 +12,7 @@ class IssueReportOberser
      */
     public function created(IssueReport $issueReport): void
     {
-        //
+        $issueReport->issue_number = 'IR-' . str_pad($issueReport->id, 5, '0', STR_PAD_LEFT);
     }
 
     /**

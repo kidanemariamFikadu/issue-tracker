@@ -99,6 +99,10 @@
                                 {{-- <th><input type="checkbox" wire:click="toggleSelectAll" 
                                         {{ count($selectedStudents) === $students->count() ? 'checked' : '' }}></th> --}}
                                 @include('livewire.includes.table-sortable-th', [
+                                    'name' => 'issue_number',
+                                    'displayName' => 'ISSUE NUMBER',
+                                ])
+                                @include('livewire.includes.table-sortable-th', [
                                     'name' => 'issue',
                                     'displayName' => 'ISSUE',
                                 ])
@@ -128,7 +132,8 @@
                         <tbody>
                             @foreach ($this->issueList as $issue)
                                 <tr wire:key="{{ $issue->id }}" class="border-b dark:border-gray-700">
-                                    <th scope="row"
+                                    <td class="px-4 py-3">{{ $issue->issue_number }}</td>
+                                    <th scope="row" title="{{$issue->issue}}"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-normal dark:text-white">
                                         {{ Str::limit($issue->issue, 50, '...') }}</th>
                                     <td class="px-4 py-3">{{ $issue->application?->name }}</td>

@@ -39,6 +39,9 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-4 py-3">
+                                    <span>Issue NUMBER</span>
+                                </th>
+                                <th scope="col" class="px-4 py-3">
                                     <span>Issue</span>
                                 </th>
                                 <th scope="col" class="px-4 py-3">
@@ -71,9 +74,10 @@
                                         <input type="checkbox" wire:model="selectedStudents"
                                             value="{{ $student->id }}">
                                     </td> --}}
-                                    <th scope="row"
-                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $issue->issue }}</th>
+                                    <td class="px-4 py-3">{{ $issue->issue_number }}</td>
+                                    <th scope="row" title="{{$issue->issue}}"
+                                        class="px-4 py-3 font-medium text-gray-900 whitespace-normal dark:text-white">
+                                        {{ Str::limit($issue->issue, 50, '...') }}</th>
                                     <td class="px-4 py-3">{{ $issue->application?->name }}</td>
                                     <td class="px-4 py-3">{{ $issue->category?->name }}</td>
                                     <td class="px-4 py-3">
