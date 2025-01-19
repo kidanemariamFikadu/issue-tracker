@@ -27,7 +27,7 @@ This app is ideal for:
 
 1. Clone the repository:  
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/kidanemariamFikadu/issue-tracker.git
    cd issue-tracker
 2. Install dependecies:
    ```bash
