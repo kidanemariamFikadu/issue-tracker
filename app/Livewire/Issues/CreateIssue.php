@@ -92,6 +92,8 @@ class CreateIssue extends ModalComponent
                 }
             }
 
+            $issueReport->issue_number = 'IR-' . str_pad($issueReport->id, 5, '0', STR_PAD_LEFT);
+
             // Reset form
             $this->reset(['issue', 'attachments', 'uploadedImages']);
 
