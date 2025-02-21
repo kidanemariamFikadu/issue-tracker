@@ -70,7 +70,7 @@ class CreateIssue extends ModalComponent
     public function createIssue()
     {
         $this->validate();
-        $issues = IssueReport::count();
+        $next = IssueReport::latest()->first()->id;
         if (!$this->issueId) {
             $issueReport = IssueReport::create([
                 'application_id' => $this->application,
@@ -78,7 +78,7 @@ class CreateIssue extends ModalComponent
                 'issue' => $this->issue,
                 'description' => $this->description,
                 'agent_id' => $this->agentId,
-                'issue_number' => 'IR-' . str_pad($issues+1, 5, '0', STR_PAD_LEFT),
+                'issue_number' => 'IR-' . str_pad($next+1, 5, '0', STR_PAD_LEFT),
             ]);
 
             // Save attachments

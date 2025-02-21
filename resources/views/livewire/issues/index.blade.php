@@ -74,7 +74,7 @@
 
                             @role('admin')
                                 <div class="flex flex-col">
-                                    <button wire:click="exportIssues"
+                                    <button wire:click="exportIssues" title="Export issue"
                                         class="px-3 py-1 rounded bg-gray-200 text-black hover:bg-blue-500 hover:text-white">
                                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             width="24" height="24" fill="none" viewBox="0 0 24 24">
