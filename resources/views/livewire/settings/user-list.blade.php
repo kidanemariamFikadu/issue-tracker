@@ -11,8 +11,8 @@
             <div class="flex">
                 <div class="relative w-full mr-2">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                            fill="currentColor" viewbox="0 0 20 20" xmlns="https://www.w3.org/2000/svg">
+                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                            viewbox="0 0 20 20" xmlns="https://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                 clip-rule="evenodd" />
@@ -51,6 +51,7 @@
                         ])
                         <th scope="col" class="px-4 py-3">Email</th>
                         <th scope="col" class="px-4 py-3">Role</th>
+                        <th scope="col" class="px-4 py-3">Status</th>
                         <th scope="col" class="px-4 py-3">
                             <span class="sr-only">Actions</span>
                         </th>
@@ -64,31 +65,54 @@
                                 {{ $user->name }}</th>
                             <td class="px-4 py-3">{{ $user->email }}</td>
                             <td class="px-4 py-3">{{ $user->getRoleNames()->implode(', ') }}</td>
-                            {{-- <td class="px-4 py-3">{{ $issue->status }}</td> --}}
+                            <td class="px-4 py-3 uppercase">{{ $user->status }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
-                                <button title="edit user"
-                                    class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                                    wire:click="$dispatch('openModal', { component: 'settings.edit-user', arguments: { userId: {{ $user->id }} }})">
-                                    <svg class="h-5 w-5 text-teal-500" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" fill="none" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" />
-                                        <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
-                                        <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
-                                        <line x1="16" y1="5" x2="19" y2="8" />
-                                    </svg>
-                                </button>
-                                <button title="edit user"
-                                    class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                                    wire:click="$dispatch('openModal', { component: 'settings.reset-password',arguments: { userId: {{ $user->id }} }} )">
-                                    Change Password
-                                </button>
-                                <button title="edit user"
-                                    class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white {{ $user->status == 'active' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600' }}"
-                                    wire:confirm="Are you sure you want to change the status for {{ $user->name }}"
-                                    wire:click="changeUserStatus({{ $user->id }})">
-                                   {{ $user->status == 'active' ? 'Disable' : 'Enable' }} user
-                                </button>
+                                <div class="inline-flex rounded-md shadow-xs" role="group">
+                                    <button type="button" title="Edit user"
+                                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+                                        wire:click="$dispatch('openModal', { component: 'settings.edit-user', arguments: { userId: {{ $user->id }} }})">
+                                        <svg class="h-5 w-5 text-teal-500" viewBox="0 0 24 24" stroke-width="2"
+                                            stroke="currentColor" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" />
+                                            <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+                                            <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
+                                            <line x1="16" y1="5" x2="19" y2="8" />
+                                        </svg>
+                                    </button>
+                                    <button type="button" title="Change Password"
+                                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+                                        wire:click="$dispatch('openModal', { component: 'settings.reset-password',arguments: { userId: {{ $user->id }} }} )">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 14v-2a2 2 0 114 0v2m-1 0h-2m-6 0h3m4 0h6"></path>
+                                            <circle cx="12" cy="10" r="3"></circle>
+                                        </svg>
+                                    </button>
+                                    <button type="button" title="{{ $user->status == 'active' ? 'Disable' : 'Enable' }} user"
+                                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+                                        {{ $user->status == 'active' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600' }}
+                                        wire:confirm="Are you sure you want to change the status for {{ $user->name }}"
+                                        wire:click="changeUserStatus({{ $user->id }})">
+                                        @if ($user->status == 'active')
+                                            <svg class="w-5 h-5 text-red-500 hover:text-red-300" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M9 10V7a3 3 0 016 0v3"></path>
+                                                <rect width="14" height="10" x="5" y="10" rx="2"></rect>
+                                            </svg>
+                                        @else
+                                            <svg class="w-5 h-5 text-green-500 hover:text-green-300" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 15v4m-4 0h8"></path>
+                                                <rect width="14" height="10" x="5" y="10" rx="2">
+                                                </rect>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
