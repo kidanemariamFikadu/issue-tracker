@@ -41,6 +41,10 @@
         <div class="mt-4">
             <table class="w-full mt-2 text-sm text-gray-700 dark:text-gray-300">
                 <tr class="px-4 py-3">
+                    <td class="font-medium">Issue No.:</td>
+                    <td>{{ $issue->issue_number }}</td>
+                </tr>
+                <tr class="px-4 py-3">
                     <td class="font-medium">Application:</td>
                     <td>{{ $issue->application?->name }}</td>
                 </tr>

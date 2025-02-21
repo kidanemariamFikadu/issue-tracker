@@ -72,6 +72,7 @@ class IssueReport extends Model
 
     public function scopeSearch($query, $value)
     {
-        $query->where('issue', 'like', "%{$value}%"); 
+        $query->where('issue', 'like', "%{$value}%")
+            ->orWhere('issue_number', 'like', "%{$value}%");
     }
 }

@@ -81,7 +81,13 @@
                                 <button title="edit user"
                                     class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
                                     wire:click="$dispatch('openModal', { component: 'settings.reset-password',arguments: { userId: {{ $user->id }} }} )">
-                                    Reset Password
+                                    Change Password
+                                </button>
+                                <button title="edit user"
+                                    class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white {{ $user->status == 'active' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600' }}"
+                                    wire:confirm="Are you sure you want to change the status for {{ $user->name }}"
+                                    wire:click="changeUserStatus({{ $user->id }})">
+                                   {{ $user->status == 'active' ? 'Disable' : 'Enable' }} user
                                 </button>
                             </td>
                         </tr>

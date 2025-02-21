@@ -47,6 +47,14 @@ class UserList extends Component
         $this->sortDir = 'DESC';
     }
 
+    function changeUserStatus($userId){
+        $user = User::find($userId);
+        $user->status = $user->status == 'active' ? 'inactive' : 'active';
+        $user->save();
+        $this->dispatch('show-toast', ['type' => 'success', 'message' => 'User updated successfully']);
+        $this->dispatch('user-changed');
+    }
+
 
     public function render()
     {
