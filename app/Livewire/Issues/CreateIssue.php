@@ -70,13 +70,15 @@ class CreateIssue extends ModalComponent
     public function createIssue()
     {
         $this->validate();
+        $issues = IssueReport::count();
         if (!$this->issueId) {
             $issueReport = IssueReport::create([
                 'application_id' => $this->application,
                 'created_by' => Auth::user()->id,
                 'issue' => $this->issue,
                 'description' => $this->description,
-                'agent_id'=>$this->agentId,
+                'agent_id' => $this->agentId,
+                'issue_number' => 'IR-' . str_pad($issues+1, 5, '0', STR_PAD_LEFT),
             ]);
 
             // Save attachments
@@ -92,9 +94,6 @@ class CreateIssue extends ModalComponent
                 }
             }
 
-            $issueReport->issue_number = 'IR-' . str_pad($issueReport->id, 5, '0', STR_PAD_LEFT);
-            $issueReport->save();
-
             // Reset form
             $this->reset(['issue', 'attachments', 'uploadedImages']);
 
@@ -105,7 +104,7 @@ class CreateIssue extends ModalComponent
                 'application_id' => $this->application,
                 'issue' => $this->issue,
                 'description' => $this->description,
-                'agent_id'=>$this->agentId,
+                'agent_id' => $this->agentId,
             ]);
 
             // Save attachments
