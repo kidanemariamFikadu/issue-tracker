@@ -90,25 +90,27 @@
                                             <circle cx="12" cy="10" r="3"></circle>
                                         </svg>
                                     </button>
-                                    <button type="button" title="{{ $user->status == 'active' ? 'Disable' : 'Enable' }} user"
+                                    <button type="button"
+                                        title="{{ $user->status == 'active' ? 'Disable' : 'Enable' }} user"
                                         class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
                                         {{ $user->status == 'active' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600' }}
                                         wire:confirm="Are you sure you want to change the status for {{ $user->name }}"
                                         wire:click="changeUserStatus({{ $user->id }})">
                                         @if ($user->status == 'active')
-                                            <svg class="w-5 h-5 text-red-500 hover:text-red-300" fill="none" stroke="currentColor" stroke-width="2"
-                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <svg class="w-5 h-5 text-red-500 hover:text-red-300" fill="none"
+                                                stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M9 10V7a3 3 0 016 0v3"></path>
                                                 <rect width="14" height="10" x="5" y="10" rx="2"></rect>
                                             </svg>
                                         @else
-                                            <svg class="w-5 h-5 text-green-500 hover:text-green-300" fill="none" stroke="currentColor" stroke-width="2"
-                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 15v4m-4 0h8"></path>
-                                                <rect width="14" height="10" x="5" y="10" rx="2">
-                                                </rect>
+                                            <svg class="w-5 h-5 text-green-500" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M10 14v3m4-6V7a3 3 0 1 1 6 0v4M5 11h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z" />
                                             </svg>
                                         @endif
                                     </button>
