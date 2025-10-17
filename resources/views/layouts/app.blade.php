@@ -135,9 +135,9 @@
                 </div>
                 <a href="https://www.lersha.com/" target="blank"
                     class="flex justify-center items-center text-2xl font-semibold text-gray-900 dark:text-white">
-                    <img src="https://www.lersha.com/assets/vectors/logo_main.svg"
+                    <img src="https://lersha.com/wp-content/uploads/2023/09/lerlogo-1024x313.png"
                         class="mr-3 h-6 sm:h-9 block dark:hidden" alt="Lersha Logo" />
-                    <img src="https://www.lersha.com/assets/vectors/logo_main.svg"
+                    <img src="https://lersha.com/wp-content/uploads/2023/09/lerlogo-1024x313.png"
                         class="mr-3 h-6 sm:h-9 hidden dark:block" alt="Lersha Logo" />
                     {{-- <span class="self-center">Lersha</span>     --}}
                 </a>
